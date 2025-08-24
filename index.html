@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DATA 2024 Workshop</title>
+    <title>WESys 2025 - Workshop on Weather and Energy Systems</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gfonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Lora:wght@400;500&display=swap" rel="stylesheet">
     <style>
         * {
@@ -16,30 +16,33 @@
 
         body {
             font-family: 'Roboto', sans-serif;
-            background: url('path/to/your/background-image.jpg') no-repeat center center fixed;
-            background-size: cover;
+            background: white;
             color: #333;
             line-height: 1.6;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            padding-top: 70px; /* 为固定导航栏预留空间 */
         }
-
-        /* Header & Navigation */
+        
+        /* 导航栏固定样式 */
         header {
-            background-color: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 100;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
         }
 
         .container {
-            width: 90%;
-            max-width: 1200px;
+            width: 100%;
+            max-width: 1600px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 30px;
         }
 
         .logo {
@@ -53,12 +56,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
+            padding: 15px 0;
         }
 
         .nav-links {
             display: flex;
             list-style: none;
+            margin-left: auto;
         }
 
         .nav-links li {
@@ -69,122 +73,692 @@
             text-decoration: none;
             color: #2c3e50;
             font-weight: 500;
-            font-size: 1rem;
+            font-size: 1.15rem;
             transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #3498db;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
         }
 
         .nav-links a:hover {
             color: #3498db;
         }
+        
+        /* 背景图样式 */
+        .hero-container {
+            position: relative;
+            width: 100%;
+            height: 85vh;
+            min-height: 600px;
+            overflow: hidden;
+        }
 
-        /* Hero Section */
-        .hero {
-            flex: 1;
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+        
+        /* 添加蒙版层 */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* 半透明黑色蒙版 */
+            z-index: 2;
+        }
+        
+        /* 标题区域样式 */
+        .hero-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 80px 20px;
-            color: #2c3e50;
+            padding: 0 20px;
+            color: white;
+        }
+        
+        .title-container-hero {
+            max-width: 1200px;
+            margin-bottom: 40px;
+        }
+        
+        .workshop-header {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        
+        .title-container-hero h1 {
+            font-family: 'Lora', serif;
+            font-size: 3.3rem;
+            font-weight: 500;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* 修改副标题样式为靠右 */
+        .subtitle {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 300;
+            max-width: 800px;
+            margin: 0 0 30px auto; /* 修改为auto右边距 */
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+            text-align: right; /* 添加靠右对齐 */
+            padding-right: 20px; /* 添加右边距 */
+        }
+        
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .subtitle {
+                text-align: center; /* 移动端恢复居中 */
+                margin: 0 auto 30px; /* 移动端居中 */
+                padding-right: 0; /* 移除右边距 */
+            }
+        }
+        
+        /* 修改信息框为垂直排列 */
+        .info-box {
+            display: flex;
+            flex-direction: column; /* 改为垂直排列 */
+            gap: 10px; /* 增加行间距 */
+            color: #ffffff;
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            text-align: center; /* 文字居中 */
+            width: fit-content; /* 自适应宽度 */
+            margin: 0 auto 40px; /* 居中显示 */
+        }
+        
+        .info-box div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        /* 移除分隔符 */
+        .info-box div:not(:last-child):after {
+            display: none;
+        }
+        
+        /* 按钮样式 */
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        
+        .btn {
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background-color: white;
+            color: #2a4b7c;
+            border: 2px solid white;
+        }
+        
+        .btn-primary:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        /* 水印文字 */
+        .image-caption-hero {
+            position: absolute;
+            bottom: 15px;
+            right: 20px;
+            z-index: 4;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
         }
 
-        .hero-content {
+        /* 主内容区域 */
+        .content-section {
+            padding: 100px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            background-color: #fff;
+        }
+        
+        .content-section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* 修改section-title为居中 */
+        .section-title {
+            font-family: 'Lora', serif;
+            font-size: 2.3rem;
+            color: #2a4b7c;
+            margin-bottom: 50px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            position: relative;
+            text-align: center; /* 添加居中 */
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            left: 50%; /* 改为居中定位 */
+            transform: translateX(-50%); /* 水平居中 */
+            bottom: -2px;
+            width: 100px;
+            height: 2px;
+            background: #2a4b7c;
+        }
+
+        .content-block {
+            margin-bottom: 80px;
+            scroll-margin-top: 100px;
+        }
+        
+        .content-block p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        
+        /* 委员会成员列表样式 */
+        .committee-list {
+            list-style: none;
             max-width: 800px;
-            background-color: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(5px);
+        }
+        
+        .committee-list li {
+            padding: 16px 0;
+            border-bottom: 1px solid #eaeaea;
+            font-size: 1.2rem;
+            display: flex;
+        }
+        
+        .committee-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .committee-list strong {
+            min-width: 220px;
+            display: inline-block;
+            font-weight: 500;
+        }
+        
+        /* 日程列表样式 */
+        .schedule-list {
+            counter-reset: schedule-counter;
+            list-style: none;
+            padding-left: 20px;
+        }
+        
+        .schedule-list li {
+            position: relative;
+            padding-left: 70px;
+            margin-bottom: 35px;
+            line-height: 1.7;
+            font-size: 1.2rem;
+        }
+        
+        .schedule-list li:before {
+            counter-increment: schedule-counter;
+            content: counter(schedule-counter, upper-roman);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 50px;
+            height: 50px;
+            background: #2a4b7c;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .schedule-list strong {
+            font-weight: 500;
+        }
+        
+        /* 主席区域样式 */
+        .chair-section {
+            background: #f8f9fa;
             padding: 40px;
             border-radius: 10px;
+            border-left: 5px solid #2a4b7c;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
         }
-
-        .hero h1 {
-            font-family: 'Lora', serif;
-            font-size: 2.8rem;
-            margin-bottom: 15px;
+        
+        .chair-section p {
+            margin: 20px 0;
+            font-size: 1.2rem;
+        }
+        
+        .chair-title {
+            font-size: 1.3rem;
             color: #2a4b7c;
-            font-weight: 400;
+            font-weight: 500;
+            margin-right: 15px;
         }
-
-        .hero h2 {
+        
+        /* Call to action section */
+        .cta-section {
+            background-color: #2a4b7c;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .cta-title {
             font-family: 'Lora', serif;
-            font-size: 2.4rem;
-            margin-bottom: 25px;
-            font-weight: 400;
-            color: #34495e;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+        
+        .cta-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        
+        .btn-cta {
+            background-color: white;
+            color: #2a4b7c;
+            font-size: 1.2rem;
+            padding: 16px 50px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-cta:hover {
+            background-color: #f0f4f8;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        .date-location {
-            font-size: 1.4rem;
-            font-weight: 300;
-            margin-top: 30px;
-            color: #5d6d7e;
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .title-container-hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1.6rem;
+            }
         }
-
-        /* Responsive Design */
+        
+        @media (max-width: 992px) {
+            .title-container-hero h1 {
+                font-size: 2.4rem;
+            }
+            
+            .workshop-header {
+                font-size: 1.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .info-box {
+                font-size: 1.3rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
         @media (max-width: 768px) {
+            body {
+                padding-top: 60px; /* 移动端导航栏高度较小 */
+            }
+            
             .nav-links {
                 display: none;
                 position: absolute;
-                top: 70px;
+                top: 60px;
                 left: 0;
                 width: 100%;
-                background: rgba(255, 255, 255, 0.95);
+                background: rgba(26, 40, 58, 0.95);
                 flex-direction: column;
-                padding: 20px 0;
-            }
-            
-            .nav-links.show {
-                display: flex;
+                padding: 25px 0;
             }
             
             .nav-links li {
-                margin: 10px 0;
+                margin: 12px 0;
                 text-align: center;
             }
             
             .hamburger {
                 display: block;
+                z-index: 20;
             }
             
-            .hero h1 {
+            .title-container-hero h1 {
                 font-size: 2.2rem;
             }
             
-            .hero h2 {
+            .workshop-header {
+                font-size: 1.1rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+                padding: 0 10px;
+            }
+            
+            .info-box {
+                font-size: 1.1rem;
+                padding: 0;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                padding: 15px 30px;
+                font-size: 1rem;
+            }
+            
+            .image-caption-hero {
+                font-size: 0.75rem;
+                right: 10px;
+                bottom: 10px;
+            }
+            
+            .schedule-list li {
+                padding-left: 60px;
+            }
+            
+            .schedule-list li:before {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .chair-section {
+                padding: 25px;
+            }
+            
+            .cta-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .title-container-hero h1 {
+                font-size: 1.9rem;
+            }
+            
+            .schedule-list li {
+                padding-left: 50px;
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
                 font-size: 1.8rem;
             }
             
-            .date-location {
-                font-size: 1.2rem;
+            .committee-list li {
+                flex-direction: column;
+            }
+            
+            .committee-list strong {
+                margin-bottom: 8px;
             }
         }
 
-        /* Mobile Menu */
+        /* 移动菜单 */
         .hamburger {
             display: none;
             cursor: pointer;
+            padding: 5px;
+        }
+        
+        .hamburger .bar {
+            width: 30px;
+            height: 3px;
+            background-color: #2c3e50;
+            margin: 6px 0;
+            transition: 0.4s;
+        }
+        
+        .hamburger.active .bar:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+        
+        .hamburger.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active .bar:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
         }
 
         /* Footer */
         footer {
-            background-color: rgba(26, 40, 58, 0.8);
+            background-color: #1a283a;
             color: #fff;
             text-align: center;
-            padding: 20px;
+            padding: 40px 0;
             font-weight: 300;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-logo {
+            font-family: 'Lora', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* 添加统一的子栏目卡片样式 */
+        .org-card {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            border-left: 5px solid #2a4b7c;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+        
+        .org-card h3 {
+            font-family: 'Lora', serif;
+            font-size: 1.5rem;
+            color: #2a4b7c;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .org-card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        
+        .org-card .chair-title {
+            font-weight: 500;
+            color: #2a4b7c;
+            min-width: 180px;
+            display: inline-block;
+        }
+        
+        /* 调整委员会列表在卡片中的样式 */
+        .org-card .committee-list {
+            margin-top: 15px;
+        }
+        
+        .org-card .committee-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .org-card .committee-list li:last-child {
+            border-bottom: none;
+        }
+
+
+                /* 添加在原有CSS中 */
+        .about-image-container {
+            margin: 40px auto;
+            max-width: 100%;
+            width: 90%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .about-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+            max-height: 500px;
+            object-fit: cover;
+        }
+
+        .about-image-container:hover .about-image {
+            transform: scale(1.02);
+        }
+
+        .image-caption {
+            text-align: center;
+            font-style: italic;
+            color: #5a6b8c;
+            margin-top: 10px;
+            font-size: 1rem;
+            padding: 0 20px;
+        }
+
+        .cfp-list {
+            margin: 0px 0;
+        }
+        
+        .cfp-list li {
+            margin-bottom: 15px;
+            padding-left: 0px;
+            position: relative;
+            font-size: 1.1rem;
+        }
+
+        
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .topic-card {
+            background: #f0f5fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #2a4b7c;
+        }
+
+        @media (max-width: 768px) {
+            .about-image-container {
+                margin: 25px auto;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            }
         }
     </style>
 </head>
 <body>
-    <header>
+    <!-- 固定导航栏 -->
+    <header id="mainHeader">
         <div class="container">
             <nav>
-                <div class="logo">DATA 2024</div>
+                <div class="logo">WESys 2025</div>
                 <ul class="nav-links" id="navLinks">
-                    <li><a href="#">AGENDA</a></li>
-                    <li><a href="#">ABOUT</a></li>
-                    <li><a href="#">CALL FOR PAPERS</a></li>
-                    <li><a href="#">ORGANIZATION</a></li>
-                    <li><a href="#">VENUE</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#schedule">Schedule</a></li>
+                    <li><a href="#cfp">Call For Submission</a></li> 
+                    <li><a href="#organization">Organization</a></li>
+                    <li><a href="#venue">Registration and Venue</a></li>
                 </ul>
                 <div class="hamburger" id="hamburger">
                     <div class="bar"></div>
@@ -195,17 +769,178 @@
         </div>
     </header>
     
-    <main class="hero">
+    <!-- 背景图区域 -->
+    <div class="hero-container">
+        <!-- 背景图像 -->
+        <img src="images/background.png" alt="Colorado Mountain Landscape" class="hero-image">
+        
+        <!-- 添加蒙版层 -->
+        <div class="hero-overlay"></div>
+        
+        <!-- 标题和日期在背景图上 -->
         <div class="hero-content">
-            <h1>Seventh International Workshop on Data:</h1>
-            <h2>Data Acquisition & Analysis in the Era of AI</h2>
-            <div class="date-location">November 6, 2024 in Hangzhou, China</div>
+            <div class="title-container-hero">
+                <h1>First International Workshop on Weather and Energy Systems in the AI era (WESys)</h1>
+                <div class="subtitle">A BuildSys 2025 Workshop</div>
+                
+                <!-- 日期和地点信息框 -->
+                <div class="info-box">
+                    <div>
+                        November 19, 2025
+                    </div>
+                    <div>
+                        Golden, Colorado, USA
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+    <!-- 主内容区域 -->
+    <main class="content-section">
+        <div class="content-section-container">
+            <!-- About 区域 -->
+            <div id="about" class="content-block">
+                <h2 class="section-title">About WESys 2025</h2>
+                <p>
+                    Weather is an important factor on energy generation 
+                    (e.g., Photovoltaic systems, Water energy systems) 
+                    and on energy demands (e.g., Low-altitude UAVs, human 
+                    activities and EVs). In recent years, we see two important 
+                    trends: 
+                </p>
+                <p>
+                    (1) New technology readiness by the weather foundation models
+                    (WFMs), e.g., FourCastNet (NVIDIA); Pangu (Huawei); GraphCast (Google);
+                    and Aurora (Microsoft). WFMs are neural network models, making it easy
+                    to transfer weather knowledge to energy system control and optimization;
+                </p>
+                <p>
+                    (2) New application demands: For example, 
+                    low-altitude UAVs are heavily influenced by wind (30%-40%) and temperature (20%) in their energy consumption.
+                    They will dock in buildings for charging and they will bring about non-trivial energy loads to buildings. This workshop aims to bring together interdisciplinary scholars from computer science and AI, energy systems, and climate and weather to talk about the opportunities brought about by weather and energy systems in the AI era.
+                </p>
+
+                <div class="about-image-container">
+                    <img src="images/domain.jpg" alt="Weather and Energy Systems Workshop" class="about-image">
+                    <div class="image-caption">Advancing energy systems through AI-powered weather insights</div>
+                </div>
+            </div>
+            
+            <div id="schedule" class="content-block">
+                <h2 class="section-title">Workshop Schedule</h2>
+                <ul class="schedule-list">
+                    <li><strong>Talks and Invited Talks</strong></li>
+                    <li><strong>Discussion Topic 1: How weather can help your energy systems/building systems</strong> </li>
+                    <li><strong>Discussion Topic 2: How AI can help in advancing weather and energy systems</strong> </li>
+                    <li><strong>Conclusions and the path forward</strong></li>
+                </ul>
+            </div>
+            <div id="cfp" class="content-block">
+                <h2 class="section-title">Call for Submission</h2>
+                
+                <p>
+                    We invite researchers, practitioners, and students to submit abstracts for <strong>posters</strong> and <strong>discussion terms</strong> showcasing meaningful work at the intersection of AI, weather modeling, and energy systems. 
+                    This is an excellent opportunity to share your cutting-edge research, ongoing projects, or preliminary results with a highly specialized audience.
+                </p>
+                
+                <h3 style="color: #2a4b7c; margin: 25px 0 15px;">Topics of Interest include,but are not limited to :</h3>
+                
+                <ul style="list-style-type: disc; margin-left: 20px; padding-left: 0;">
+                    <li style="margin-bottom: 10px; padding-left: 5px;">Integration of weather, energy, and AI-based systems</li>
+                    <li style="margin-bottom: 10px; padding-left: 5px;">AI-powered weather understanding and modeling</li>
+                    <li style="margin-bottom: 10px; padding-left: 5px;">AI-assisted weather data reanalysis</li>
+                    <li style="margin-bottom: 10px; padding-left: 5px;">Weather-enhanced Energy Optimization</li>
+                    <li style="margin-bottom: 10px; padding-left: 5px;">Deployment of integrated weather systems</li>
+                    <li style="margin-bottom: 10px; padding-left: 5px;">Methodologies for the measurement and quantification of AI-powered weather systems</li>
+                </ul>
+                <div class="submission-guidelines" >
+                    <h3 style="color: #2a4b7c; margin: 25px 0 15px;">Submission Guidelines</h3>
+
+                    <p>The workshop solicits two types of submissions:</p>
+
+                    <ul class="cfp-list">
+                        <li><strong>Posters</strong> (2 pages in the standard ACM conference PDF template, including references) are encouraged to:(1) Support younger researchers entering this field to share their ongoing work, and
+                                (2) Attract interdisciplinary researchers to share their practice and experience.
+                        </li>
+                        <li><strong>Discussion terms</strong> (no page limits) are encouraged to provide any abstract, research topic, and trends that can catalyze discussion among the workshop attendees and readers.</li>
+                    </ul>
+
+
+                    <div class="submission-details">
+                        <p>Submission Details:</p>
+                        <ul class="cfp-list">
+                            <li><strong>Format:</strong> PDF submissions via hotcrp to: TBD</li>
+                            <li><strong>Deadline:</strong> October 17, 2025 (Anywhere on Earth)</li>
+                            <li><strong>Notification:</strong> October 31, 2025</li>
+                            <li><strong>Poster Size:</strong> For accepted posters, the required physical poster size is A0 portrait orientation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+             <div id="organization" class="content-block">s
+                <h2 class="section-title">Organization</h2>
+                
+                <!-- Steering Committee统一卡片 -->
+                <div class="org-card">
+                    <h3>Steering Committee</h3>
+                    <ul class="committee-list">
+                        <li>
+                            <strong>Keshav Srinivasan</strong>
+                            <span>University of Cambridge</span>
+                        </li>
+                        <li>
+                            <strong>Fei Chen</strong>
+                            <span>The Hong Kong University of Science and Technology (HKUST)</span>
+                        </li>
+                        <li>
+                            <strong>Dan Wang</strong>
+                            <span>The Hong Kong Polytechnic University (HK PolyU)</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Workshop Chairs统一卡片 -->
+                <div class="org-card">
+                    <h3>Workshop Chairs</h3>
+                    <p>
+                        <span class="chair-title">Workshop Chair:</span>
+                        Dan Wang (HK PolyU)
+                    </p>
+                    <p>
+                        <span class="chair-title">Co-Organizing Chairs:</span>
+                        Fang He and Jiaqi Fan
+                    </p>
+                </div>
+            </div>
+            <!-- Venue 区域 -->
+            <div id="venue" class="content-block">
+                <h2 class="section-title">Registration and Venue</h2>
+                <p>
+                For registration and venue details, visa information, etc, <a href="https://buildsys.acm.org/2025/">Please visit the BuildSys webpage</a> 
+                </p>
+            </div>
+        </div>
+        
+        <!-- Call to Action Section -->
+        <div class="cta-section">
+            <div class="cta-container">
+                <h3 class="cta-title">Ready to Participate?</h3>
+                <p class="cta-text">Join us at WESys 2025 to explore the latest advancements at the intersection of AI, weather, and energy systems.</p>
+                <a href="#" class="btn-cta">Register Now</a>
+            </div>
         </div>
     </main>
     
     <footer>
-        <div class="container">
-            <p>DATA 2024 Workshop &copy; All Rights Reserved</p>
+        <div class="footer-content">
+            <div class="footer-logo">WESys 2025</div>
+            <div class="copyright">
+                <p>WESys 2025 Workshop &copy; All Rights Reserved</p>
+                <p>In collaboration with ACM BuildSys 2025</p>
+            </div>
         </div>
     </footer>
     
@@ -216,6 +951,43 @@
         
         hamburger.addEventListener('click', () => {
             navLinks.classList.toggle('show');
+            hamburger.classList.toggle('active');
+        });
+        
+        // 平滑滚动到锚点
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            if (anchor.getAttribute('href') !== '#') {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 90,
+                            behavior: 'smooth'
+                        });
+                        
+                        // 移动端点击后关闭菜单
+                        if (navLinks.classList.contains('show')) {
+                            navLinks.classList.remove('show');
+                            hamburger.classList.remove('active');
+                        }
+                    }
+                });
+            }
+        });
+        
+        // 导航栏滚动效果
+        const header = document.getElementById('mainHeader');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.boxShadow = '0 5px 10px rgba(0,0,0,0.1)';
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
         });
     </script>
 </body>
